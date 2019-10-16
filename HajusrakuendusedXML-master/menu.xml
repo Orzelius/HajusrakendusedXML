@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<menu>
+    <item type="Food">
+        <name>Muffin</name>
+        <category>Dessert</category>
+        <veganism>Vegan</veganism>
+        <weight>200</weight>
+        <price>3</price>
+    </item>
+    <item type="Food">
+        <name>Apple pie</name>
+        <category>Dessert</category>
+        <veganism>Vegan</veganism>
+        <weight>400</weight>
+        <price>2</price>
+    </item>
+    <item type="Food">
+        <name>Mushroom soup</name>
+        <category>Soup</category>
+        <veganism>Vegan</veganism>
+        <weight>1200</weight>
+        <price>4</price>
+    </item>
+    <item type="Food">
+        <name>Avacado pancakes</name>
+        <category>Main</category>
+        <veganism>Vegan</veganism>
+        <weight>800</weight>
+        <price>3</price>
+    </item>
+    <item type="Food">
+        <name>Ceasar salad</name>
+        <category>Salad</category>
+        <veganism>None</veganism>
+        <weight>800</weight>
+        <price>6</price>
+    </item>
+    <item type="Food">
+        <name>Summer salad</name>
+        <category>Salad</category>
+        <veganism>Vegan</veganism>
+        <weight>600</weight>
+        <price>5.5</price>
+    </item>
+    <item type="Drink">
+        <name>Beer</name>
+        <category>Alcoholic</category>
+        <veganism>Vegan</veganism>
+        <weight>500</weight>
+        <price>1</price>
+    </item>
+    <item type="Drink">
+        <name>Irish coffee</name>
+        <category>Alcoholic</category>
+        <veganism>Vegeterian</veganism>
+        <weight>400</weight>
+        <price>2.5</price>
+    </item>
+    <item type="Drink">
+        <name>Apple juice</name>
+        <category>Non alcoholic</category>
+        <veganism>Vegan</veganism>
+        <weight>500</weight>
+        <price>1</price>
+    </item>
+</menu>
