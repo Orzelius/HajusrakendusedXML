@@ -5,7 +5,7 @@ Tegin iseseisva töö kodus. Tunnis öeldu järgi sain aru, et peaks tegema rake
 ## Kuidas tööle panna
 
 ```
-npm -i
+npm i
 ```
 ```
 nodemon start
