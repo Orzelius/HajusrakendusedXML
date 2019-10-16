@@ -13,6 +13,7 @@ a {
 }
 .container-fluid {
   /* padding-top: 70px; */
+  display: flex;
   padding-bottom: 70px;
 }
 .navbar {
@@ -33,3 +34,16 @@ a {
 .navbar-brand{
   font-size: 2em;
 }
+
+.col-sm-9{
+  min-width: 40em;
+}
+/* 
+@media only screen and (max-width: 1700px) {
+  .col-sm-9{
+    width: 100%;
+  }
+  .col-sm-3{
+    width: 100%;
+  }
+} */
