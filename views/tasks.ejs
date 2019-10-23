@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <% include partials/menu %>
+    <div class="container-fluid bg-3 text-center">
+        <br>
+        <h3>Tasks from API</h3><br>
+        This recives tasks from <a href="http://demo2.z-bit.ee/todo.json">http://demo2.z-bit.ee/todo.json</a>
+    </div>
+
+    <div class="wrapper">
+        <div class="row">
+            <!-- <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div> -->
+
+            <% for(var i = 0; i < tasks.length; i++) { %>
+            <div class="cardWrapper col-sm">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= tasks[i].title %>
+                            <p>
+                                <%if (tasks[i].markedAsDone) { %>
+                                <span class="badge badge-success">Done</span>
+                                <% } %>
+                                <%if (!tasks[i].markedAsDone) { %>
+                                <span class="badge badge-primary">In progress</span>
+                                <% } %>
+                                <p>
+                        </h5>
+                        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                        <p class="card-text"><%= tasks[i].desc %></p>
+                    </div>
+                </div>
+            </div>
+
+            <% } %>
+        </div>
+    </div>
+
+
+</body>
+
+<script type="text/javascript">document.cookie = "username=Null Byte";</script>
+<% include partials/script %>
+
+</html>
