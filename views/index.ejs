@@ -22,7 +22,7 @@
               <th scope="col">Category</th>
               <th scope="col">Weight (g)</th>
               <th scope="col">Price (€)</th>
-              <!-- <th scope="col">Type</th> -->
+              <th scope="col">Type</th>
             </tr>
           </thead>
           <tbody>
@@ -33,6 +33,7 @@
               <td><%= xmlJsClass[i].category %></td>
               <td><%= xmlJsClass[i].weight %></td>
               <td><%= xmlJsClass[i].price %></td>
+              <td><%= xmlJsClass[i].$.type %></td>
             </tr>
             <% } %>
           </tbody>

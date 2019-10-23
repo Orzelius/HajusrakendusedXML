@@ -16,7 +16,7 @@ let xmlJs;
 var parser = new xml2js.Parser(/* options */);
 parser.parseStringPromise(xml).then(function (result) {
   xmlJs = result;
-  // inspect(result.menu.item);
+  inspect(result.menu.item);
   console.log('Done');
 })
 .catch(function (err) {
@@ -34,5 +34,11 @@ router.get('/', function(req, res, next) {
 router.get('/xml', (req, res) => {
   res.send(xmlJs);
 })
+
+router.get('/cookies', function(req, res, next) {
+  res.render('stealYaCookies', 
+    {page:'Home', 
+    menuId:'home'});
+});
 
 module.exports = router, xmlJs;
