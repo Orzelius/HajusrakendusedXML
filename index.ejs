@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include ./partials/head.ejs%>
+</head>
+
+<body>
+  <%- include ./partials/nav.ejs%>
+
+  <div class="formWrapper card">
+    <div class="card-body">
+      <form>
+        <div class="row">
+
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="Title">Task title</label>
+              <input type="Title" class="form-control" id="Title" placeholder="Bring eggs">
+              <small id="TitleHelp" class="form-text text-muted">The title of your task</small>
+            </div>
+          </div>
+
+          <div class="col-sm">
+            <div class="form-group">
+              <label for="Desc">Description</label>
+              <input type="Desc" class="form-control" id="Desc" placeholder="We need about 10">
+              <small id="DescHelp" class="form-text text-muted">You can describe your task here</small>
+            </div>
+          </div>
+
+          
+        </div>
+        <button type="submit" class="btn btn-primary taskBtn">Create</button>
+      </form>
+    </div>
+  </div>
+</body>
+
+<%- include ./partials/scripts.ejs%>
+
+</html>
