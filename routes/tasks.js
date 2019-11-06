@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const axios = require('axios')
 var path = require('path');
+var colors = require('colors');
 var bodyParser = require("body-parser");
 var inspect = require('eyes').inspector({
     maxLength: false
@@ -45,40 +46,50 @@ router.get('/log-in', function (req, res, next) {
     });
 });
 
-router.post('/log-in', function(req,res){
-    console.log('req.body: ')
-    inspect(req.body);
-    console.log();
-    var email=req.body.email;
-    var password=req.body.password;
+router.post('/log-in', logBody, getUser);
+
+function getUser(req, res, next) {
+    var email = req.body.email;
+    var password = req.body.password;
+    let data;
 
     axios.post('http://demo2.z-bit.ee/users/get-token', {
         username: email,
         password: password
     })
-    .then((res) => {
-        inspect(`statusCode: ${res.statusCode}`);
-        inspect(res.data);
-        if(res.data.id != undefined){
-            sess = res.data;
-        }
-        // router.res('/', () =>{})
-    })
-    .catch((error) => {
-        // inspect(error);
-        errorMsg = 'Incorrect password or username';
-        // res.send(errorMsg)
-        // router.res('/log.in', (req, res) =>{
-        //     res.render('log-in', {
-        //         page: 'Login',
-        //         menuId: 'log-in',
-        //         errorMsg: errorMsg
-        //     });
-        // })
-    })
+        .then((res2) => {
+            inspect(`statusCode: ${res2.statusCode}`);
+            inspect(res2.data);
+            data = res2.data;
+            console.log('logged in'.green)
+        })
+        .catch((error) => {
+            inspect(error);
+            errorMsg = 'Incorrect password or username';
+            console.log(errorMsg.red);
+            // res.send(errorMsg)
+            // router.res('/log.in', (req, res) =>{
+        })
+        console.log("Data:".red)
+        inspect(data);
+    if (data.id != 'undefined') {
+        sess = res.data;
+        res.redirect('');
+    }
+    res.render('log-in', {
+        page: 'Login',
+        menuId: 'log-in',
+        errorMsg: errorMsg
+    });
+    // res.end();
+};
 
-    res.end();
-});
+function logBody(req, res, next) {
+    console.log('req.body: ')
+    inspect(req.body);
+    console.log();
+    next();
+}
 
 router.get('/', function (req, res, next) {
     res.render('tasks', {
