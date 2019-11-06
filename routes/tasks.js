@@ -58,10 +58,16 @@ function getUser(req, res, next) {
         password: password
     })
         .then((res2) => {
+            console.log("Status code:".green);
             inspect(`statusCode: ${res2.statusCode}`);
-            inspect(res2.data);
+            console.log("Data1:".red);
             data = res2.data;
+            inspect(data);
             console.log('logged in'.green)
+            if (data.id != 'undefined') {
+                sess = res.data;
+                res.redirect('../tasks');
+            }
         })
         .catch((error) => {
             inspect(error);
@@ -69,18 +75,12 @@ function getUser(req, res, next) {
             console.log(errorMsg.red);
             // res.send(errorMsg)
             // router.res('/log.in', (req, res) =>{
+                res.render('log-in', {
+                    page: 'Login',
+                    menuId: 'log-in',
+                    errorMsg: errorMsg
+                });
         })
-        console.log("Data:".red)
-        inspect(data);
-    if (data.id != 'undefined') {
-        sess = res.data;
-        res.redirect('');
-    }
-    res.render('log-in', {
-        page: 'Login',
-        menuId: 'log-in',
-        errorMsg: errorMsg
-    });
     // res.end();
 };
 
