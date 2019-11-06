@@ -8,9 +8,13 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var taskRouter = require('./routes/tasks');
+const session = require('express-session')
+
+// const redis = require('redis');
+// const redisStore = require('connect-redis')(session);
+// const client  = redis.createClient();
 
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +36,14 @@ app.use('/tasks', taskRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+app.use(session({
+  secret: 'OOOOOOOOHghG',
+  // create new redis store.
+  // store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
+  saveUninitialized: false,
+  resave: false
+}));
 
 // error handler
 app.use(function(err, req, res, next) {

@@ -6,3 +6,11 @@
     margin: 0.4em;
     min-width: 20em;
 }
+
+.badgeAsi{
+    margin-top: -0.4em;
+}
+
+.formWrapper{
+    margin-bottom: 3em;
+}

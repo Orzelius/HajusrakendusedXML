@@ -7,44 +7,70 @@
 </head>
 
 <body>
-    <% include partials/menu %>
-    
-    
+    <% include partials/taskMenu %>
+
+
     <div class="container-fluid bg-3 text-center">
         <br>
-        <h3>Tasks from API</h3><br>
+        <h3>Tasks from API</h3>
         This recives tasks from <a href="http://demo2.z-bit.ee/todo.json">http://demo2.z-bit.ee/todo.json</a>
     </div>
 
     <div class="wrapper">
-        <div class="row">
-            <!-- <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's
-                    content.</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                </div>
-            </div> -->
 
+        <div class="formWrapper card">
+            <div class="card-body">
+                <form>
+                    <div class="row">
+
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <!-- <label for="Title">Task title</label> -->
+                                <input type="Title" class="form-control" id="Title" placeholder="Bring eggs">
+                                <small id="TitleHelp" class="form-text text-muted">The title of your task</small>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <!-- <label for="Desc">Description</label> -->
+                                <input type="Desc" class="form-control" id="Desc" placeholder="We need about 10">
+                                <small id="DescHelp" class="form-text text-muted">You can describe your task
+                                    here</small>
+                                <!-- <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="Complete">
+                                    <label class="form-check-label" for="Complete">Task is complete</label>
+                                </div> -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <button type="submit" class="btn btn-primary taskBtn">Create</button>
+                </form>
+            </div>
+        </div>
+
+        <h4>Tasks</h4>
+
+        <div class="row">
 
             <% for(var i = 0; i < tasks.length; i++) { %>
-            <div class="cardWrapper col-sm">
+            <div class="cardWrapper col-sm" id="<%= tasks.length - i - 1%>">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><%= tasks[i].title %>
-                            <p>
+                        </h5>
+                        <div class="badgeAsi">
+                            <h5>
                                 <%if (tasks[i].markedAsDone) { %>
                                 <span class="badge badge-success">Done</span>
                                 <% } %>
                                 <%if (!tasks[i].markedAsDone) { %>
                                 <span class="badge badge-primary">In progress</span>
                                 <% } %>
-                                <p>
-                        </h5>
+                                <h5>
+                        </div>
                         <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
                         <p class="card-text"><%= tasks[i].desc %></p>
                     </div>

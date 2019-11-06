@@ -15,7 +15,18 @@ var inspect = require('eyes').inspector({
     maxLength: false
 });
 
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
+let errorMsg = "";
 let tasks;
+let login = {
+    name: "",
+    status: "",
+    password: "",
+    access_token: ""
+};
+let sess;
 
 Request.get("http://demo2.z-bit.ee/todo.json", (error, response, body) => {
     if (error) {
@@ -26,14 +37,15 @@ Request.get("http://demo2.z-bit.ee/todo.json", (error, response, body) => {
 });
 
 router.get('/log-in', function (req, res, next) {
+    errorMsg = '';
     res.render('log-in', {
         page: 'Login',
         menuId: 'log-in',
-        tasks: tasks
+        errorMsg: errorMsg
     });
 });
 
-router.post('/log-in',function(req,res){
+router.post('/log-in', function(req,res){
     console.log('req.body: ')
     inspect(req.body);
     console.log();
@@ -47,17 +59,43 @@ router.post('/log-in',function(req,res){
     .then((res) => {
         inspect(`statusCode: ${res.statusCode}`);
         inspect(res.data);
+        if(res.data.id != undefined){
+            sess = res.data;
+        }
+        // router.res('/', () =>{})
     })
     .catch((error) => {
-        inspect(error);
-})
+        // inspect(error);
+        errorMsg = 'Incorrect password or username';
+        // res.send(errorMsg)
+        // router.res('/log.in', (req, res) =>{
+        //     res.render('log-in', {
+        //         page: 'Login',
+        //         menuId: 'log-in',
+        //         errorMsg: errorMsg
+        //     });
+        // })
+    })
 
     res.end();
 });
 
+router.get('/', function (req, res, next) {
+    res.render('tasks', {
+        page: 'Tasks',
+        menuId: 'home',
+        login: login,
+        tasks: tasks
+    });
+    inspect(res.session);
+});
+
+
+module.exports = router;
+
 // router.post('/log-in', 
 // [
-//     // username must be an email
+    //     // username must be an email
 //     check('email').isEmail(),
 //     // password must be at least 5 chars long
 //     check('password').isLength({ min: 5 })
@@ -88,14 +126,3 @@ router.post('/log-in',function(req,res){
 //     .catch((error) => {
 //         console.error(error)
 // })
-
-router.get('/', function (req, res, next) {
-    res.render('tasks', {
-        page: 'Tasks',
-        menuId: 'home',
-        tasks: tasks
-    });
-});
-
-
-module.exports = router;
