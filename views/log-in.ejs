@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form name="log-in" class="needs-validation" method="POST" action="#" novalidate>
+            <div class="form-group">
+                <label for="inputEmail">Username</label>
+                <input name="email" type="username" class="form-control" id="inputEmail" placeholder="Username" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword">Password</label>
+                <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                <div class="invalid-feedback">Please enter your password to continue.</div>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label"><input name="checkbox" type="checkbox"> Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+    </div>
+</body>
+
+<script>
+    // Self-executing function
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                    
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+<script type="text/javascript">document.cookie = "username=Null Byte";</script>
+<% include partials/script %>
+
+</html>
