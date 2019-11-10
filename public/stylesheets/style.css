@@ -14,3 +14,15 @@
 .formWrapper{
     margin-bottom: 3em;
 }
+
+#loginBtn{
+    text-align: center;
+}
+
+#loginBtn:hover span{
+    display: none;
+}
+
+#loginBtn:hover:before{
+    content: "Log out";
+}

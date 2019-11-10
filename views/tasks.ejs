@@ -2,12 +2,20 @@
 
 <html lang="en">
 
+<!-- 
+Params passed:
+    page: 'Tasks',
+    menuId: 'home',
+    login: req.session.user,
+    tasks: tasks 
+-->
+
 <head>
     <% include partials/head %>
 </head>
 
 <body>
-    <% include partials/taskMenu %>
+    <%- include('partials/taskMenu', {login: login}); %>
 
 
     <div class="container-fluid bg-3 text-center">
@@ -20,13 +28,12 @@
 
         <div class="formWrapper card">
             <div class="card-body">
-                <form>
+                <form name="makeTask" action="/tasks/makeTask" method="POST" action="#">
                     <div class="row">
-
                         <div class="col-sm">
                             <div class="form-group">
                                 <!-- <label for="Title">Task title</label> -->
-                                <input type="Title" class="form-control" id="Title" placeholder="Bring eggs">
+                                <input type="Title" name='Title' class="form-control" id="Title" placeholder="Bring eggs">
                                 <small id="TitleHelp" class="form-text text-muted">The title of your task</small>
                             </div>
                         </div>
@@ -34,7 +41,7 @@
                         <div class="col-sm">
                             <div class="form-group">
                                 <!-- <label for="Desc">Description</label> -->
-                                <input type="Desc" class="form-control" id="Desc" placeholder="We need about 10">
+                                <input type="Desc" class="form-control" name="Desc" id="Desc" placeholder="We need about 10">
                                 <small id="DescHelp" class="form-text text-muted">You can describe your task
                                     here</small>
                                 <!-- <div class="form-check">
@@ -43,13 +50,12 @@
                                 </div> -->
                             </div>
                         </div>
-
-
                     </div>
                     <button type="submit" class="btn btn-primary taskBtn">Create</button>
                 </form>
             </div>
         </div>
+
 
         <h4>Tasks</h4>
 
@@ -86,5 +92,6 @@
 
 <script type="text/javascript">document.cookie = "username=Null Byte";</script>
 <% include partials/script %>
+
 
 </html>

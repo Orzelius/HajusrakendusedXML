@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<!-- 
+Params passed:
+    page: 'Tasks',
+    menuId: 'home',
+    login: req.session.user,
+    tasks: tasks 
+-->
+
+<head>
+    <% include partials/head %>
+</head>
+
+<body>
+    <%- include('partials/taskMenu', {login: login}); %>
+
+
+    <div class="container-fluid bg-3 text-center">
+        <br>
+        <h3>Tasks from API</h3>
+        This recives tasks from <a href="http://demo2.z-bit.ee/todo.json">http://demo2.z-bit.ee/todo.json</a>
+        <br><br>
+        <a class="btn btn-primary" href="/tasks/log-in" role="button">Register</a> or <a class="btn btn-primary"
+                href="/tasks/log-in" role="button">Log In</a> to view your tasks.
+    </div>
+
+
+
+</body>
+
+<script type="text/javascript">document.cookie = "username=Null Byte";</script>
+<% include partials/script %>
+
+
+</html>

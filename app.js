@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var taskRouter = require('./routes/tasks');
-const session = require('express-session')
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 // const redis = require('redis');
 // const redisStore = require('connect-redis')(session);
@@ -20,6 +21,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(require('morgan')('dev'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +29,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+  name: 'session.sid',
+  secret: '123abc!',
+  saveUninitialized: true,
+  resave: true,
+  store: new FileStore(),
+  cookie: {
+    secure: false,
+    maxAge: 600000
+  }
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -37,13 +51,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.use(session({
-  secret: 'OOOOOOOOHghG',
-  // create new redis store.
-  // store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
-  saveUninitialized: false,
-  resave: false
-}));
 
 // error handler
 app.use(function(err, req, res, next) {

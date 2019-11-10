@@ -21,8 +21,8 @@
             </div>
             <div class="form-group">
                 <!-- <label class="form-check-label"><input name="checkbox" type="checkbox"> Remember me</label> -->
-                <%if (errorMsg != undefined) { %>
-                    <div class="invalid-feedback"><%=errorMsg%></div>
+                <%if (errorMsg == "Incorrect password or username") { %>
+                    <div class="text-danger"><%=errorMsg%></div>
                 <% } %>
                 <div class="invalid-feedback">Please enter your password to continue.</div>
             </div>
