@@ -8,7 +8,10 @@ const fs = require('fs');
 let xml2js = require('xml2js');
 const http = require('http');
 var Request = require("request");
-const { check, validationResult } = require('express-validator');
+const {
+    check,
+    validationResult
+} = require('express-validator');
 var inspect = require('eyes').inspector({
     maxLength: false
 });
@@ -39,7 +42,27 @@ router.post('/log-in', logBody, getUser);
 
 router.post('/makeTask', logBody, makeTask);
 
-function makeTask(req, res, next){
+function makeTask(req, res, next) {
+    let taskData = {
+        'title': req.body.Title,
+        'desc': req.body.Desc
+    }
+
+    axios.post('http://demo2.z-bit.ee/tasks', {
+        headers: {
+            'Authorization': 'Bearer ' + req.session.user.access_token
+        },
+        data : taskData
+    })
+    .then(function(response){
+        res.redirect('../tasks');
+        res.end();
+    })
+    .catch(function (error) {
+        console.log(error);
+        console.log("Failed to push tasks to the API".red);
+    });
+
     res.redirect('/tasks');
 }
 
@@ -53,9 +76,9 @@ function getUser(req, res, next) {
     inspect(req.session.cookie);
 
     axios.post('http://demo2.z-bit.ee/users/get-token', {
-        username: email,
-        password: password
-    })
+            username: email,
+            password: password
+        })
         .then((res2) => {
             console.log("Data1:".red);
             data = res2.data;
@@ -93,11 +116,10 @@ router.get('/', function (req, res, next) {
     inspect(req.session.user)
     if (typeof req.session.user !== 'undefined') {
         axios.get('http://demo2.z-bit.ee/tasks', {
-            headers: {
-                'Authorization': 'Bearer ' + req.session.user.access_token
-            }
-        }
-        )
+                headers: {
+                    'Authorization': 'Bearer ' + req.session.user.access_token
+                }
+            })
             .then(function (response) {
                 console.log("Got tasks from API: ".green);
                 inspect(response.data);
@@ -115,8 +137,7 @@ router.get('/', function (req, res, next) {
             });
 
 
-    }
-    else {
+    } else {
         res.render('tasksLogIn', {
             page: 'tasksLogIn',
             menuId: 'home',
