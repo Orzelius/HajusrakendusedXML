@@ -21,7 +21,7 @@ Params passed:
     <div class="container-fluid bg-3 text-center">
         <br>
         <h3>Tasks from API</h3>
-        This recives tasks from <a href="http://demo2.z-bit.ee/todo.json">http://demo2.z-bit.ee/todo.json</a>
+        This recives tasks from <a href="http://demo2.z-bit.ee">http://demo2.z-bit.ee</a>
     </div>
 
     <div class="wrapper">
@@ -59,7 +59,14 @@ Params passed:
         </div>
 
 
-        <h4>Tasks</h4>
+        
+        <%if (typeof tasks[0] == 'undefined') { %>
+            <br>
+            <h5>You can start by making a task</h5>
+            <% } %>
+        <%if (typeof tasks[0] != 'undefined') { %>
+            <h4>Tasks</h4>
+        <% } %>
 
         <div class="row">
 
