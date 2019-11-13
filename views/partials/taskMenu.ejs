@@ -16,11 +16,14 @@
     </ul>
     <form class="form-inline my-2 my-md-0">
         <%if (typeof login != "undefined") { %>
-            <button id="loginBtn" class="btn btn-primary" href="/tasks/log-in" role="button">
+          <form name="logOut" action="/tasks/logOut" method="POST">
+            <button id="loginBtn" class="btn btn-primary" role="button" type="submit" name="logOut" value="logOut">
               <span>
                 Logged in as <%-login.username%>
               </span> 
             </button>
+          </form>
+
           <% }
           else { %>
           <a id="loginBtn2" class="btn btn-primary" href="/tasks/log-in" role="button">Log in</a>

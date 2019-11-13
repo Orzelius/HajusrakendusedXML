@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const axios = require('axios')
+const axios = require('axios').default;
 var path = require('path');
 var colors = require('colors');
 var bodyParser = require("body-parser");
@@ -27,6 +27,7 @@ let login = {
     password: "",
     access_token: ""
 };
+
 let sess;
 
 router.get('/log-in', function (req, res, next) {
@@ -38,9 +39,66 @@ router.get('/log-in', function (req, res, next) {
     });
 });
 
+router.post('/logOut', logBody, logOut);
+
 router.post('/log-in', logBody, getUser);
 
 router.post('/makeTask', logBody, makeTask);
+
+router.post('/edit', logBody, editTask);
+
+function logOut(req, res, next) {
+
+    console.log("Logging out".green);
+    res.session.destroy();
+
+    res.redirect('/log-in');
+}
+
+function editTask(req, res, next) {
+    let editData = {
+        'id': req.body.id,
+        'action': req.body.action,
+        'title': req.body.title
+    }
+
+    console.log(editData.action);
+
+    if(editData.action == "Delete"){
+        console.log("Deleting task".red);
+        axios.delete('http://demo2.z-bit.ee/tasks/' + editData.id, {
+            headers: {
+                'Authorization': 'Bearer ' + req.session.user.access_token
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log("Failed to delete task on the API".red);
+        });
+    }
+    else{
+        let data = {
+            "title": editData.title,
+            "marked_as_done": true
+        }
+        if(editData.action == "Mark as In Progress"){
+            data.marked_as_done = false;
+        }
+
+        axios.put('http://demo2.z-bit.ee/tasks/' + editData.id, data, {
+            headers: {
+                'Authorization': 'Bearer ' + req.session.user.access_token
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+            console.log("Failed update task on the API".red);
+        });
+    }
+
+    
+    res.redirect('/tasks');
+}
 
 function makeTask(req, res, next) {
     let taskData = {
@@ -48,15 +106,12 @@ function makeTask(req, res, next) {
         'desc': req.body.Desc
     }
 
-    axios.post('http://demo2.z-bit.ee/tasks', {
+    axios.post('http://demo2.z-bit.ee/tasks', taskData, {
         headers: {
             'Authorization': 'Bearer ' + req.session.user.access_token
-        },
-        data : taskData
+        }
     })
     .then(function(response){
-        res.redirect('../tasks');
-        res.end();
     })
     .catch(function (error) {
         console.log(error);
@@ -121,7 +176,7 @@ router.get('/', function (req, res, next) {
                 }
             })
             .then(function (response) {
-                console.log("Got tasks from API: ".green);
+                console.log("Got tasks from API ".green);
                 inspect(response.data);
                 tasks = response.data;
                 res.render('tasks', {
