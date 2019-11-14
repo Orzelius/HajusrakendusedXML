@@ -19,7 +19,6 @@ var inspect = require('eyes').inspector({
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
-let errorMsg = "";
 let tasks;
 let login = {
     name: "",
@@ -118,7 +117,7 @@ function registerUser(req, res, next) {
         })
         .catch((error) => {
             inspect(error);
-            errorMsg = 'Something went wrong';
+            errorMsg = 'Something went wrong, try again';
             console.log(errorMsg.red);
             // res.send(errorMsg)
             // router.res('/log.in', (req, res) =>{
@@ -206,8 +205,14 @@ function makeTask(req, res, next) {
         .catch(function (error) {
             console.log(error);
             console.log("Failed to push tasks to the API".red);
+            res.render('tasks', {
+                page: 'Tasks',
+                menuId: 'home',
+                login: req.session.user,
+                tasks: tasks,
+                ErrorMsg: "Failed the task creation"
+            });
         });
-    res.redirect('/tasks');
 }
 
 function getUser(req, res, next) {

@@ -17,13 +17,14 @@ Params passed:
 <body>
     <%- include('partials/taskMenu', {login: login}); %>
 
-
+    
     <div class="container-fluid bg-3 text-center">
         <br>
         <h3>Tasks from API</h3>
         This recives tasks from <a href="http://demo2.z-bit.ee">http://demo2.z-bit.ee</a>
     </div>
 
+    
     <div class="wrapper">
 
         <div class="formWrapper card">
@@ -55,9 +56,12 @@ Params passed:
                     </div>
                     <button type="submit" class="btn btn-primary taskBtn">Create</button>
                 </form>
+                <%if (typeof ErrorMsg != 'undefined') { %>
+                    <br>
+                    <p class="text-danger"><%-ErrorMsg%></p>
+                <% } %>
             </div>
         </div>
-
 
         
         <%if (typeof tasks[0] == 'undefined') { %>
@@ -70,7 +74,7 @@ Params passed:
 
         <div class="row">
 
-            <% for(var i = 0; i < tasks.length; i++) { %>
+            <% for(var i = tasks.length - 1; i >= 0; i--) { %>
             <form name="makeTask" action="/tasks/edit" method="POST">
                 <input type="hidden" value=<%=tasks[i].id%> name="id" />
                 <input type="hidden" value=<%=tasks[i].title%> name="title" />
